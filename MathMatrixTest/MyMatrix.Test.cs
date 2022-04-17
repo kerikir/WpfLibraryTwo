@@ -363,5 +363,27 @@ namespace MathMatrixTest
             //Assert
             Assert.Throws<Exception>(() => myMatrixA + myMatrixB);
         }
+
+        [Fact]
+        public void FillMatrixRandom_FillRandomNumber_NotEqualZero()
+        {
+            //Arrange
+            MyMatrix<int> myMatrix = new MyMatrix<int>(5, 5);
+            int[,] array = new int[5, 5];
+            int[,] matrixArray = new int[5, 5];
+
+            //Acl
+            myMatrix.FillMatrixRandom();
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    matrixArray[i, j] = myMatrix[i,j];
+                }
+            }
+
+            //Assert
+            Assert.NotEqual(array, matrixArray);
+        }
     }
 }

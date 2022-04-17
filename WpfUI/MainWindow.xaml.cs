@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathMatrix;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,9 @@ namespace WpfUI
         private int rowsMatrixB;
         private int colsMatrixA;
         private int colsMatrixB;
+        private MyMatrix<int> matrA;
+        private MyMatrix<int> matrB;
+        private MyMatrix<int> matrC;
 
         public MainWindow()
         {
@@ -70,6 +74,7 @@ namespace WpfUI
         {
             rowsMatrixA = Convert.ToInt32(tbRowsMatrixA.Text);
             colsMatrixA = Convert.ToInt32(tbColsMatrixA.Text);
+            matrA = new MyMatrix<int>(rowsMatrixA, colsMatrixA);
             matrixA = ShowMatrix(ugMatrixA, rowsMatrixA, colsMatrixA);
         }
 
@@ -80,7 +85,52 @@ namespace WpfUI
         {
             rowsMatrixB = Convert.ToInt32(tbRowsMatrixB.Text);
             colsMatrixB = Convert.ToInt32(tbColsMatrixB.Text);
+            matrB = new MyMatrix<int>(rowsMatrixB, colsMatrixB);
             matrixB = ShowMatrix(ugMatrixB, rowsMatrixB, colsMatrixB);
+        }
+
+        /// <summary>
+        /// Обработчкик кнопки случайного заполнения матрицы A
+        /// </summary>
+        private void buttonClick_RandomFillMatrixA(object sender, RoutedEventArgs e)
+        {
+            if (matrA == null)
+            {
+                buttonClick_CreateMatrixA(sender, e);
+            }
+            else
+            {
+                matrA.FillMatrixRandom();
+                for (int i = 0; i < rowsMatrixA; i++)
+                {
+                    for (int j = 0; j < colsMatrixA; j++)
+                    {
+                        matrixA[i, j].Text = matrA[i, j].ToString();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Обработчкик кнопки случайного заполнения матрицы B
+        /// </summary>
+        private void buttonClick_RandomFillMatrixB(object sender, RoutedEventArgs e)
+        {
+            if (matrB == null)
+            {
+                buttonClick_CreateMatrixB(sender, e);
+            }
+            else
+            {
+                matrB.FillMatrixRandom();
+                for (int i = 0; i < rowsMatrixB; i++)
+                {
+                    for (int j = 0; j < colsMatrixB; j++)
+                    {
+                        matrixB[i, j].Text = matrB[i, j].ToString();
+                    }
+                }
+            }
         }
     }
 }

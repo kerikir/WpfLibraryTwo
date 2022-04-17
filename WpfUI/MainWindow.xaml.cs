@@ -98,17 +98,16 @@ namespace WpfUI
             {
                 buttonClick_CreateMatrixA(sender, e);
             }
-            else
+
+            matrA.FillMatrixRandom();
+            for (int i = 0; i < rowsMatrixA; i++)
             {
-                matrA.FillMatrixRandom();
-                for (int i = 0; i < rowsMatrixA; i++)
+                for (int j = 0; j < colsMatrixA; j++)
                 {
-                    for (int j = 0; j < colsMatrixA; j++)
-                    {
-                        matrixA[i, j].Text = matrA[i, j].ToString();
-                    }
+                    matrixA[i, j].Text = matrA[i, j].ToString();
                 }
             }
+        
         }
 
         /// <summary>
@@ -120,17 +119,49 @@ namespace WpfUI
             {
                 buttonClick_CreateMatrixB(sender, e);
             }
-            else
+
+            matrB.FillMatrixRandom();
+            for (int i = 0; i < rowsMatrixB; i++)
             {
-                matrB.FillMatrixRandom();
-                for (int i = 0; i < rowsMatrixB; i++)
+                for (int j = 0; j < colsMatrixB; j++)
                 {
-                    for (int j = 0; j < colsMatrixB; j++)
-                    {
-                        matrixB[i, j].Text = matrB[i, j].ToString();
-                    }
+                    matrixB[i, j].Text = matrB[i, j].ToString();
                 }
             }
+
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки заполнения матрицы формулой
+        /// </summary>
+        private void buttonClick_FillFuncMatrixB(object sender, RoutedEventArgs e)
+        {
+            if (matrB == null)
+            {
+                buttonClick_CreateMatrixB(sender, e);
+            }
+
+            Func<int, int, int> func;
+            func = (i, j) => int.Parse(tbFuncMatrixB.Text);
+
+            matrB.GenerateMatrix(func);
+            for (int i = 0; i < rowsMatrixB; i++)
+            {
+                for (int j = 0; j < colsMatrixB; j++)
+                {
+                    matrixB[i, j].Text = matrB[i, j].ToString();
+                }
+            }
+        }
+
+        private void buttonClick_CalculateMatrixC(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonClick_SaveFileMatrixC(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

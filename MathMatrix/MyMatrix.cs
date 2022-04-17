@@ -30,6 +30,7 @@ namespace MathMatrix
         /// <param name="matrix">Объект класса</param>
         public MyMatrix(MyMatrix<T> matrix)
         {
+            dataArray = new T[matrix.dataArray.GetLength(0), matrix.dataArray.GetLength(1)];
             for (int i = 0; i < matrix.dataArray.GetLength(0); i++)
             {
                 for (int j = 0; j < matrix.dataArray.GetLength(1); j++)
@@ -132,7 +133,10 @@ namespace MathMatrix
             {
                 for (int j = 0; j < resultMatrix.dataArray.GetLength(1); j++)
                 {
-                    resultMatrix.dataArray[i, j] += (dynamic)myMatrix1.dataArray[i, j] * (dynamic)myMatrix2.dataArray[j, i];
+                    for (int k = 0; k < myMatrix1.dataArray.GetLength(1); k++)
+                    {
+                        resultMatrix.dataArray[i, j] += (dynamic)myMatrix1.dataArray[i, k] * (dynamic)myMatrix2.dataArray[k, j];
+                    }
                 }
             }
 

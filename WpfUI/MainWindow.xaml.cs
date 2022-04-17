@@ -24,5 +24,19 @@ namespace WpfUI
         {
             InitializeComponent();
         }
+
+        private void buttonClick_CreateMatrixA(object sender, RoutedEventArgs e)
+        {
+            //int rows = Convert.ToInt32(tbRowsMatrixA.Text);
+            //int cols = Convert.ToInt32(tbColsMatrixA.Text);
+
+            //ugMatrixA.Height = rows;
+            //ugMatrixA.Width = cols;
+
+            //int[,] array = new int[rows, cols];
+            //TextBlock textBlock = new TextBlock();
+
+            //ugMatrixA.Children.Add(textBlock);
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace MathMatrix
     public class MyMatrix<T> 
     {
         private T[,] dataArray;
+        private int rows;
+        private int cols;
 
         /// <summary>
         /// Конструктор класса
@@ -21,7 +23,9 @@ namespace MathMatrix
         /// <param name="cols">Количество столбцов</param>
         public MyMatrix(int rows, int cols)
         {
-            dataArray = new T[rows, cols];
+            this.rows = rows;
+            this.cols = cols;
+            dataArray = new T[this.rows, this.cols];
         }
 
         /// <summary>
@@ -30,10 +34,12 @@ namespace MathMatrix
         /// <param name="matrix">Объект класса</param>
         public MyMatrix(MyMatrix<T> matrix)
         {
-            dataArray = new T[matrix.dataArray.GetLength(0), matrix.dataArray.GetLength(1)];
-            for (int i = 0; i < matrix.dataArray.GetLength(0); i++)
+            this.rows = matrix.rows;
+            this.cols = matrix.cols;
+            dataArray = new T[matrix.rows, matrix.cols];
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < matrix.dataArray.GetLength(1); j++)
+                for (int j = 0; j < cols; j++)
                 {
                     this.dataArray[i, j] = matrix.dataArray[i, j];
                 }
@@ -46,6 +52,8 @@ namespace MathMatrix
         /// <param name="array">Массив значений</param>
         public MyMatrix(T[,] array)
         {
+            rows = array.GetLength(0);
+            cols = array.GetLength(1);
             dataArray = array;
         }
 
@@ -73,9 +81,9 @@ namespace MathMatrix
         /// <param name="func">Функция заполнения значения матрицы</param>
         public void GenerateMatrix(Func<int,int,T> func)
         {
-            for (int i = 0; i < dataArray.GetLength(0); i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < dataArray.GetLength(1); j++)
+                for (int j = 0; j < cols; j++)
                 {
                     dataArray[i, j] = func(i, j);
                 }
@@ -91,8 +99,7 @@ namespace MathMatrix
         public static MyMatrix<T> operator+(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)
         {
             //проверка размерности
-            if((myMatrix1.dataArray.GetLength(0)!= myMatrix2.dataArray.GetLength(0))
-                ||(myMatrix1.dataArray.GetLength(1)!= myMatrix2.dataArray.GetLength(1)))
+            if ((myMatrix1.rows != myMatrix2.rows) || (myMatrix1.cols != myMatrix2.cols)) 
             {
                 throw new Exception("Dimension mismatch of matrices!");
             }
@@ -100,9 +107,9 @@ namespace MathMatrix
             MyMatrix<T> resultMatrix = new MyMatrix<T>(myMatrix1);
             
             //сложение матриц
-            for (int i = 0; i < resultMatrix.dataArray.GetLength(0); i++)
+            for (int i = 0; i < resultMatrix.rows; i++)
             {
-                for (int j = 0; j < resultMatrix.dataArray.GetLength(1); j++)
+                for (int j = 0; j < resultMatrix.cols; j++)
                 {
                     resultMatrix.dataArray[i, j] += (dynamic)myMatrix2.dataArray[i, j];
                 }
@@ -121,19 +128,19 @@ namespace MathMatrix
         public static MyMatrix<T> operator*(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)
         {
             //проверка размерности
-            if (myMatrix1.dataArray.GetLength(1) != myMatrix2.dataArray.GetLength(0))
+            if (myMatrix1.cols != myMatrix2.rows)
             {
                 throw new Exception("Dimension mismatch of matrices!");
             }
 
-            MyMatrix<T> resultMatrix = new MyMatrix<T>(myMatrix1.dataArray.GetLength(0), myMatrix2.dataArray.GetLength(1));
+            MyMatrix<T> resultMatrix = new MyMatrix<T>(myMatrix1.rows, myMatrix2.cols);
 
             //умножение матриц
-            for (int i = 0; i < resultMatrix.dataArray.GetLength(0); i++)
+            for (int i = 0; i < resultMatrix.rows; i++)
             {
-                for (int j = 0; j < resultMatrix.dataArray.GetLength(1); j++)
+                for (int j = 0; j < resultMatrix.cols; j++)
                 {
-                    for (int k = 0; k < myMatrix1.dataArray.GetLength(1); k++)
+                    for (int k = 0; k < myMatrix1.cols; k++)
                     {
                         resultMatrix.dataArray[i, j] += (dynamic)myMatrix1.dataArray[i, k] * (dynamic)myMatrix2.dataArray[k, j];
                     }
@@ -141,6 +148,22 @@ namespace MathMatrix
             }
 
             return resultMatrix;
+        }
+
+        /// <summary>
+        /// Заполнение матрицы случайным образом
+        /// </summary>
+        public void FillMatrixRandom()
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    dataArray[i, j] = (dynamic)random.Next(1, 100);
+                }
+            }
         }
     }
 

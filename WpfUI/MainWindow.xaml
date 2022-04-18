@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfUI"
         mc:Ignorable="d"
-        Title="Действия с матрицами Власова Кирилла" Height="720" Width="1280">
+        Title="Действия с матрицами Власова Кирилла" Height="720" Width="1280"
+        MinHeight="720" MinWidth="1280">
     <Grid>
         <!--Столбцы-->
         <Grid.ColumnDefinitions>
@@ -13,7 +14,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!--Строки-->
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -43,14 +44,14 @@
         <TextBox x:Name="tbFuncMatrixB" Grid.Row="1" Grid.Column="1" Margin="35 0 0 30" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="45" ToolTip="Введите формулу для заполнения матрицы"/>
         <Button x:Name="btFillFunctionMatrixB" Content="Заполнить матрицу по формуле" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 30" Height="45" Width="185" ToolTip="Матрица заполнится согласно формуле" Click="buttonClick_FillFuncMatrixB"/>
         <Button x:Name="btGenerateMatrixB" Content="Автоматически заполнить" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15 0 0 30" Height="45" Width="350" ToolTip="Матрица заполнится случайным образом" Click="buttonClick_RandomFillMatrixB"/>
-        
+
         <!--Матрица C-->
         <ComboBox x:Name="cbxOperation" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" SelectedIndex="0" Width="180" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="30 15 0 0">
-        <TextBlock>Сумма матриц</TextBlock>
+            <TextBlock>Сумма матриц</TextBlock>
             <TextBlock>Произведение матриц</TextBlock>
         </ComboBox>
         <Button x:Name="btCalculateMatrixC" Content="Посчитать" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 30 0" Height="30" Width="150" Click="buttonClick_CalculateMatrixC"/>
         <Button x:Name="btSaveFileMatrixC" Content="Сохранить в файл" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 15 30" Height="45" Width="350" ToolTip="Сохранить полученную матрицу в файл" Click="buttonClick_SaveFileMatrixC"/>
-        
+
     </Grid>
 </Window>

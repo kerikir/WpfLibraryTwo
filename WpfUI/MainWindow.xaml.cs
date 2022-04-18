@@ -38,6 +38,38 @@ namespace WpfUI
         }
 
         /// <summary>
+        /// Считывание из матрицы данных в таблицу
+        /// </summary>
+        /// <param name="textBox">Массив куда запишутся данные</param>
+        /// <param name="matrix">Матрица откуда будут считаны данные</param>
+        private void FillTextBoxFromMatrix(TextBox[,] textBox, MyMatrix<int> matrix)
+        {
+            for (int i = 0; i < matrix.Rows; i++)
+            {
+                for (int j = 0; j < matrix.Cols; j++)
+                {  
+                    textBox[i, j].Text = matrix[i, j].ToString();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Считывание из таблицы данных в матрицу
+        /// </summary>
+        /// <param name="textBox">Массив данных откуда будут считаны данные</param>
+        /// <param name="matrix">Матрица куда запишутся данные</param>
+        private void FillMatrixFromTextBox(TextBox[,] textBox, MyMatrix<int> matrix)
+        {
+            for (int i = 0; i < matrix.Rows; i++)
+            {
+                for (int j = 0; j < matrix.Cols; j++)
+                {
+                    matrix[i, j] = Convert.ToInt32(textBox[i, j].Text);
+                }
+            }
+        }
+
+        /// <summary>
         /// Отображение матрицы (uniformgrid)
         /// </summary>
         /// <param name="uniformGrid">Таблица</param>
@@ -100,13 +132,7 @@ namespace WpfUI
             }
 
             matrA.FillMatrixRandom();
-            for (int i = 0; i < rowsMatrixA; i++)
-            {
-                for (int j = 0; j < colsMatrixA; j++)
-                {
-                    matrixA[i, j].Text = matrA[i, j].ToString();
-                }
-            }
+            FillTextBoxFromMatrix(matrixA, matrA);
         
         }
 
@@ -121,13 +147,7 @@ namespace WpfUI
             }
 
             matrB.FillMatrixRandom();
-            for (int i = 0; i < rowsMatrixB; i++)
-            {
-                for (int j = 0; j < colsMatrixB; j++)
-                {
-                    matrixB[i, j].Text = matrB[i, j].ToString();
-                }
-            }
+            FillTextBoxFromMatrix(matrixB, matrB);
 
         }
 
@@ -145,20 +165,20 @@ namespace WpfUI
             func = (i, j) => int.Parse(tbFuncMatrixB.Text);
 
             matrB.GenerateMatrix(func);
-            for (int i = 0; i < rowsMatrixB; i++)
-            {
-                for (int j = 0; j < colsMatrixB; j++)
-                {
-                    matrixB[i, j].Text = matrB[i, j].ToString();
-                }
-            }
+            FillTextBoxFromMatrix(matrixB, matrB);
         }
 
+        /// <summary>
+        /// Обработка нажатие кнопки - выполнение арифметических действий с матрицами
+        /// </summary>
         private void buttonClick_CalculateMatrixC(object sender, RoutedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Обработка нажатие кнопки - сохранение полученной матрицы в файл
+        /// </summary>
         private void buttonClick_SaveFileMatrixC(object sender, RoutedEventArgs e)
         {
 

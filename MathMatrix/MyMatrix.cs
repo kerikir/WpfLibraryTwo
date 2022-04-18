@@ -15,6 +15,28 @@ namespace MathMatrix
         private T[,] dataArray;
         private int rows;
         private int cols;
+        public int Rows 
+        {
+            private set
+            {
+                rows = value;
+            }
+            get
+            {
+                return rows;
+            }
+        }
+        public int Cols
+        {
+            private set
+            {
+                cols = value;
+            }
+            get
+            {
+                return cols;
+            }
+        }
 
         /// <summary>
         /// Конструктор класса
@@ -161,7 +183,7 @@ namespace MathMatrix
             {
                 for (int j = 0; j < cols; j++)
                 {
-                    dataArray[i, j] = (dynamic)random.Next(1, 100);
+                    dataArray[i, j] = (dynamic)random.Next(1, 50);
                 }
             }
         }

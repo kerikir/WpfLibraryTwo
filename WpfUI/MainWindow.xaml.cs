@@ -1,6 +1,7 @@
 ﻿using MathMatrix;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace WpfUI
     {
         private TextBox[,] matrixA;
         private TextBox[,] matrixB;
+        private TextBox[,] matrixC;
         private int rowsMatrixA;
         private int rowsMatrixB;
         private int colsMatrixA;
@@ -126,14 +128,9 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_RandomFillMatrixA(object sender, RoutedEventArgs e)
         {
-            if (matrA == null)
-            {
-                buttonClick_CreateMatrixA(sender, e);
-            }
-
+            buttonClick_CreateMatrixA(sender, e);
             matrA.FillMatrixRandom();
             FillTextBoxFromMatrix(matrixA, matrA);
-        
         }
 
         /// <summary>
@@ -141,14 +138,9 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_RandomFillMatrixB(object sender, RoutedEventArgs e)
         {
-            if (matrB == null)
-            {
-                buttonClick_CreateMatrixB(sender, e);
-            }
-
+            buttonClick_CreateMatrixB(sender, e);
             matrB.FillMatrixRandom();
             FillTextBoxFromMatrix(matrixB, matrB);
-
         }
 
         /// <summary>
@@ -156,13 +148,10 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_FillFuncMatrixB(object sender, RoutedEventArgs e)
         {
-            if (matrB == null)
-            {
-                buttonClick_CreateMatrixB(sender, e);
-            }
+            buttonClick_CreateMatrixB(sender, e);
 
             Func<int, int, int> func;
-            func = (i, j) => int.Parse(tbFuncMatrixB.Text);
+            func = (i, j) => i + j;
 
             matrB.GenerateMatrix(func);
             FillTextBoxFromMatrix(matrixB, matrB);
@@ -173,7 +162,16 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_CalculateMatrixC(object sender, RoutedEventArgs e)
         {
-
+            if ((matrA == null) || (matrB == null))
+            {
+                MessageBox.Show("Пожалуйста сгенерируйте матрицу!");
+            }
+            else
+            {
+                double time;
+                DoCalculateMatrix(out time);
+                tbTime.Text = time.ToString() + " мс";
+            }
         }
 
         /// <summary>
@@ -181,7 +179,36 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_SaveFileMatrixC(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        /// <summary>
+        /// Выполнение расчетов
+        /// </summary>
+        private void DoCalculateMatrix(out double time)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            TimeSpan timeSpan;
+
+            stopwatch.Start();
+            if (cbxOperation.SelectedIndex==0)
+            {
+                matrC = matrA + matrB;
+            }
+            else
+            {
+                matrC = matrA * matrB;
+            }
+            stopwatch.Stop();
+
+            if ((matrixC == null)||(ugMatrixC.Rows!=matrC.Rows) || (ugMatrixC.Columns != matrC.Cols))
+            {
+                matrixC = ShowMatrix(ugMatrixC, matrC.Rows, matrC.Cols);
+            }
+            FillTextBoxFromMatrix(matrixC, matrC);
+
+            timeSpan = stopwatch.Elapsed;
+            time = timeSpan.TotalMilliseconds;
         }
     }
 }

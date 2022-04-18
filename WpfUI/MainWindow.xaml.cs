@@ -169,9 +169,16 @@ namespace WpfUI
             }
             else
             {
-                double time;
-                DoCalculateMatrix(out time);
-                tbTime.Text = time.ToString() + " мс";
+                try
+                {
+                    double time;
+                    DoCalculateMatrix(out time);
+                    tbTime.Text = time.ToString() + " мс";
+                }
+                catch(Exception)
+                {
+                    MessageBox.Show("Размер матриц не соответствует правилам!");
+                }
             }
         }
 

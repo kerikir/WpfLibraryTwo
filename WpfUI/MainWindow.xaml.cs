@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -179,7 +180,8 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_SaveFileMatrixC(object sender, RoutedEventArgs e)
         {
-            
+            string pathFile = "matrixC.csv";
+            SaveCsvFile(pathFile);
         }
 
         /// <summary>
@@ -209,6 +211,28 @@ namespace WpfUI
 
             timeSpan = stopwatch.Elapsed;
             time = timeSpan.TotalMilliseconds;
+        }
+
+        /// <summary>
+        /// Сохранение матрицы в файл
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        private void SaveCsvFile(string path)
+        {
+            var csv = new StringBuilder();
+            string matrixString = "";
+
+            for (int i = 0; i < matrC.Rows; i++)
+            {
+                for (int j = 0; j < matrC.Cols; j++)
+                {
+                    matrixString += matrC[i, j].ToString() + "\t";
+                }
+                csv.AppendLine(matrixString);
+                matrixString = "";
+            }
+
+            File.WriteAllText(path, csv.ToString());
         }
     }
 }

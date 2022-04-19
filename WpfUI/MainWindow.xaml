@@ -41,8 +41,8 @@
         <TextBlock Text="Кол-во столбцов" Grid.Row="1" Grid.Column="1" Height="20" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20 5 30 0"/>
         <TextBox x:Name="tbColsMatrixB" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Top" Margin="20 30 30 0" HorizontalAlignment="Center" Width="100" ToolTip="Указывайте размер не больше 20"/>
         <Button x:Name="btCreateMatrixB" Content="Создать матрицу" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 15 30 0" Height="30" Width="100" Click="buttonClick_CreateMatrixB"/>
-        <TextBox x:Name="tbFuncMatrixB" Grid.Row="1" Grid.Column="1" Margin="35 0 0 30" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="45" ToolTip="Введите формулу для заполнения матрицы"/>
-        <Button x:Name="btFillFunctionMatrixB" Content="Заполнить матрицу по формуле" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 30" Height="45" Width="185" ToolTip="Матрица заполнится согласно формуле" Click="buttonClick_FillFuncMatrixB"/>
+        <!--<TextBox x:Name="tbFuncMatrixB" Grid.Row="1" Grid.Column="1" Margin="35 0 0 30" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="45" ToolTip="Введите формулу для заполнения матрицы"/>
+        <Button x:Name="btFillFunctionMatrixB" Content="Заполнить матрицу по формуле" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 30 30" Height="45" Width="185" ToolTip="Матрица заполнится согласно формуле" Click="buttonClick_FillFuncMatrixB"/>-->
         <Button x:Name="btGenerateMatrixB" Content="Автоматически заполнить" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15 0 0 30" Height="45" Width="350" ToolTip="Матрица заполнится случайным образом" Click="buttonClick_RandomFillMatrixB"/>
 
         <!--Матрица C-->

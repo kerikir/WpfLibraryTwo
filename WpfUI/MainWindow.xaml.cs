@@ -1,4 +1,5 @@
 ﻿using MathMatrix;
+using MathNet.Symbolics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -150,10 +151,9 @@ namespace WpfUI
         private void buttonClick_FillFuncMatrixB(object sender, RoutedEventArgs e)
         {
             buttonClick_CreateMatrixB(sender, e);
-
-            Func<int, int, int> func;
-            func = (i, j) => i + j;
-
+            Func<double, double, double> func;
+            string function = tbFuncMatrixB.Text;
+            func = SymbolicExpression.Parse(function).Compile("x", "y");
             matrB.GenerateMatrix(func);
             FillTextBoxFromMatrix(matrixB, matrB);
         }

@@ -101,13 +101,27 @@ namespace MathMatrix
         /// Заполнение значений матрицы
         /// </summary>
         /// <param name="func">Функция заполнения значения матрицы</param>
-        public void GenerateMatrix(Func<int,int,T> func)
+        public void GenerateMatrix(Func<int,int,T> func) 
         {
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
                 {
                     dataArray[i, j] = func(i, j);
+                }
+            }
+        }
+        /// <summary>
+        /// Заполнение значений матрицы
+        /// </summary>
+        /// <param name="func">Функция заполнения значения матрицы</param>
+        public void GenerateMatrix(Func<double,double, double> func)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    dataArray[i, j] = Convert.ToInt32((dynamic)func(i, j));
                 }
             }
         }
@@ -118,7 +132,7 @@ namespace MathMatrix
         /// <param name="myMatrix1">Объект класса</param>
         /// <param name="myMatrix2">Объект класса</param>
         /// <returns>Полученный результирующий объект</returns>
-        public static MyMatrix<T> operator+(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)
+        public static MyMatrix<T> operator+(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)  
         {
             //проверка размерности
             if ((myMatrix1.rows != myMatrix2.rows) || (myMatrix1.cols != myMatrix2.cols)) 

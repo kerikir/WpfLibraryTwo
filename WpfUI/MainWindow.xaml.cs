@@ -108,6 +108,7 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_CreateMatrixA(object sender, RoutedEventArgs e)
         {
+
             rowsMatrixA = Convert.ToInt32(tbRowsMatrixA.Text);
             colsMatrixA = Convert.ToInt32(tbColsMatrixA.Text);
             matrA = new MyMatrix<int>(rowsMatrixA, colsMatrixA);
@@ -119,10 +120,12 @@ namespace WpfUI
         /// </summary>
         private void buttonClick_CreateMatrixB(object sender, RoutedEventArgs e)
         {
+
             rowsMatrixB = Convert.ToInt32(tbRowsMatrixB.Text);
             colsMatrixB = Convert.ToInt32(tbColsMatrixB.Text);
             matrB = new MyMatrix<int>(rowsMatrixB, colsMatrixB);
             matrixB = ShowMatrix(ugMatrixB, rowsMatrixB, colsMatrixB);
+
         }
 
         /// <summary>
@@ -142,19 +145,6 @@ namespace WpfUI
         {
             buttonClick_CreateMatrixB(sender, e);
             matrB.FillMatrixRandom();
-            FillTextBoxFromMatrix(matrixB, matrB);
-        }
-
-        /// <summary>
-        /// Обработчик нажатия кнопки заполнения матрицы формулой
-        /// </summary>
-        private void buttonClick_FillFuncMatrixB(object sender, RoutedEventArgs e)
-        {
-            buttonClick_CreateMatrixB(sender, e);
-            Func<double, double, double> func;
-            string function = tbFuncMatrixB.Text;
-            func = SymbolicExpression.Parse(function).Compile("x", "y");
-            matrB.GenerateMatrix(func);
             FillTextBoxFromMatrix(matrixB, matrB);
         }
 
@@ -240,6 +230,46 @@ namespace WpfUI
             }
 
             File.WriteAllText(path, csv.ToString());
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки заполнения матрицы формулой
+        /// </summary>
+        private void buttonClick_FillFuncMatrixA(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                buttonClick_CreateMatrixA(sender, e);
+                Func<double, double, double> func;
+                string function = tbFuncMatrixA.Text;
+                func = SymbolicExpression.Parse(function).Compile("x", "y");
+                matrA.GenerateMatrixFromString(func);
+                FillTextBoxFromMatrix(matrixA, matrA);
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Введите функцию согласно правилам!");
+            }
+        }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки заполнения матрицы формулой
+        /// </summary>
+        private void buttonClick_FillFuncMatrixB(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                buttonClick_CreateMatrixB(sender, e);
+                Func<double, double, double> func;
+                string function = tbFuncMatrixB.Text;
+                func = SymbolicExpression.Parse(function).Compile("x", "y");
+                matrB.GenerateMatrixFromString(func);
+                FillTextBoxFromMatrix(matrixB, matrB);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Введите функцию согласно правилам!");
+            }
         }
     }
 }

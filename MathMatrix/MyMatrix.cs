@@ -115,7 +115,7 @@ namespace MathMatrix
         /// Заполнение значений матрицы
         /// </summary>
         /// <param name="func">Функция заполнения значения матрицы</param>
-        public void GenerateMatrix(Func<double,double, double> func)
+        public void GenerateMatrixFromString(Func<double,double, double> func)
         {
             for (int i = 0; i < rows; i++)
             {

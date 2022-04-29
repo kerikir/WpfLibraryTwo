@@ -161,7 +161,7 @@ namespace MathMatrix
         /// <param name="myMatrix2">Объект класса</param>
         /// <returns>Полученный результирующий объект</returns>
         /// <exception cref="Exception">Ошибка размерности</exception>
-        public static MyMatrix<T> operator*(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)
+        public static MyMatrix<T> operator *(MyMatrix<T> myMatrix1, MyMatrix<T> myMatrix2)
         {
             //проверка размерности
             if (myMatrix1.cols != myMatrix2.rows)
@@ -180,6 +180,33 @@ namespace MathMatrix
                     {
                         resultMatrix.dataArray[i, j] += (dynamic)myMatrix1.dataArray[i, k] * (dynamic)myMatrix2.dataArray[k, j];
                     }
+                }
+            }
+
+            return resultMatrix;
+        }
+        // Кирилл, складывать и умножать матрицы конечно круто, но ведь можно еще и ТРАНСПОНИРОВАТЬ
+        // По-моему очень нужная штука, добавишь кнопку и результрующую матрицу преобразишь до неузнаваемости
+        public static MyMatrix<T> operator !(MyMatrix<T> myMatrix)
+        {
+
+            MyMatrix<T> resultMatrix = new MyMatrix<T>(myMatrix.rows, myMatrix.cols); ;
+            dynamic temp;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = i; j < 5; j++)
+                {
+                    temp = myMatrix[i,j];
+                    myMatrix[i, j] = myMatrix[j,i];
+                    myMatrix[j,i] = temp;
+                }
+            }
+
+            for (int i = 0; i < resultMatrix.rows; i++)
+            {
+                for (int j = 0; j < resultMatrix.cols; j++)
+                {
+                    resultMatrix.dataArray[i, j] = myMatrix[i, j];
                 }
             }
 

@@ -192,9 +192,9 @@ namespace MathMatrix
 
             MyMatrix<T> resultMatrix = new MyMatrix<T>(myMatrix.rows, myMatrix.cols); ;
             dynamic temp;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = i; j < 5; j++)
+                for (int j = i; j < cols; j++)
                 {
                     temp = myMatrix[i,j];
                     myMatrix[i, j] = myMatrix[j,i];
